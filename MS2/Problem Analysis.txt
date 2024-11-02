@@ -1,0 +1,40 @@
+Problem Analysis:
+
+We are using trucks to deliver packages across the city. Our part of the map is 25 x 25 squares. We start from our office point which is located at 1A. All the addresses on the map are represented by row number and column letter. So with 1A the row number is 1 and the column letter is A. There are 3 trucks that we will use and each of them has a unique pathway it will follow. There is a blue pathway for one truck, green pathway for one truck and a yellow pathway for another truck. These pathways overlap with one another but we begin at the blue pathway and branch off from there. There are buildings located on the map which are marked in black. The rest of the space is white and we can divert the truck from its path onto whitespace. Our job is to create a program in which we can input a shipment with information regarding the trucks weight, size and address it's supposed to be delivering to. After inputting this the program will validate the data entered and return which path/truck will be used to deliver the shipment. The truck chosen will be the one closet to the destination with the most amount of space. If the truck has to divert from its path onto whitespace than we must specify the addresses of the blocks it travelled through. 
+
+Here are the trucks size and weight specifications:
+
+All of the trucks are the same size and can hold up to 2000kg of cargo. They are also able to carry up to 20 cubic meters of boxes. The boxes that will be used are 1/2 cubic meter, 1 cubic meter and 2 cubic meter. All of the boxes will be square. 
+
+If a truck has hit it's maximum weight or volume it is now full and cannot carry any additional load. Now there will be cases where two trucks are the same distance away from the destination so we will have to pick the one that is less full. In order to determine this we must first determine the limiting factor for that truck. This will either be the weight or the volume of the truck. We find out which one by figuring out which is value is more full as a percentage.
+
+Ex.(assume 2000 kg max and 20 cubic max)
+
+Truck 1
+Weight: 1500kg
+Fullness as a percent: (1500/2000) * 100 = 75% full
+
+Volume: 10
+Fullness as a percent: (10/20) * 100 = 50% full 
+
+In this case since the weight is more full, it will be the limiting factor. We would determine the limiting factor for the second truck in a similar way. Once we gained it we would compare the two values and figure out which one is less. If the limiting factor for the second truck is the volume and it's 60% full, we would end up picking the second truck since it's less full percentage wise. 
+
+Here are the specifications for determining distance:
+
+We will need to develop the A* algorithm in order to determine which truck will be closest to the destination. This algorithm will work in the following way. The  Euclidean distance between each square of the trucks route and shipment destination will be calculated. It will pick the square with the smallest Euclidean distance and then the Euclidean distance between that square and the destination will be calculated again. This will go onwards until the destination is reached. If the truck being used cant find the destination than that truck will not be used and another truck will be used. it will pick the next truck that is closest. If that truck cannot hold the package it will pick the next one. If no trucks can take the package than it will be stored in storage at the depot and be shipped the next day. The program will print out Ships tomorrow.
+
+The algorithm continues to run until all trucks are full or items stop arriving for shipment. 
+
+Data structures and Functions:
+
+We will need to create data structures for the trucks and store the weight and volume within this structure. 
+
+We will need functions that will create a truck with it's necessary weight needed and destination address it will go to.
+
+We will need a function that will be able to calculate which truck will be less full. 
+
+We will need a function that will be able to determine which route will be closest to the destination and if diversions are needed which specific path to use.   
+
+
+
+
