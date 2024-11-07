@@ -24,13 +24,4 @@ struct Path // represent to a shortest path
 	struct Point point[MAX_ROUTE]; // point in path
 	int length; // length of path
 };
-
-void addPackage(struct Truck* tr, struct Package pkg);
-double calculateCapacity(const struct Truck* tr);
-struct Path calculatePath(const struct Map* m, struct Point begin, struct Point dest);
-
-void testAddPackage();
-void testCalculateCapacity();
-void testCalculatePath();
-
 #endif // !NEW_STRUCTURE_H
