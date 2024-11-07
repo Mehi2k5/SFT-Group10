@@ -35,5 +35,7 @@ int countPackages(const struct Truck* tr);
 void testAddPackage();
 void testCalculateCapacity();
 void testCalculatePath();
+void testCanAddPackage();
+void testCountPackage();
 
 #endif // !NEW_STRUCTURE_H
