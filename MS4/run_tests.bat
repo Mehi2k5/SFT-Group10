@@ -3,7 +3,6 @@ set SRC_DIR=src
 set TEST_DIR=tests
 set BUILD_DIR=build
 
-:: Clear and create build directory
 if exist %BUILD_DIR% (rmdir /S /Q %BUILD_DIR%)
 mkdir %BUILD_DIR%
 cd %BUILD_DIR%
@@ -25,14 +24,10 @@ blackbox_tests.exe > blackbox_results.log
 echo Running whitebox tests...
 whitebox_tests.exe > whitebox_results.log
 
-:: Display test results
 echo Blackbox Test Results:
 type blackbox_results.log
 
 echo Whitebox Test Results:
 type whitebox_results.log
-
-:: Optional: upload results to Jira or other tracking system
-:: Add code to post results to Jira if using an API or Jira CLI (if available on Windows).
 
 echo Tests completed successfully.
