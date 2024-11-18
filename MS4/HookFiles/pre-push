@@ -1,1 +1,34 @@
+#!/bin/bash
 
+echo "Running BlackboxTests.cpp and WhiteBox.cpp before pushing..."
+
+# Compile BlackboxTests.cpp
+g++ -o BlackboxTests BlackboxTests.cpp
+if [ $? -ne 0 ]; then
+    echo "Compilation failed for BlackboxTests.cpp. Push aborted."
+    exit 1
+fi
+
+# Run BlackboxTests
+./BlackboxTests
+if [ $? -ne 0 ]; then
+    echo "BlackboxTests failed. Push aborted."
+    exit 1
+fi
+
+# Compile WhiteBox.cpp
+g++ -o WhiteBox WhiteBox.cpp
+if [ $? -ne 0 ]; then
+    echo "Compilation failed for WhiteBox.cpp. Push aborted."
+    exit 1
+fi
+
+# Run WhiteBox
+./WhiteBox
+if [ $? -ne 0 ]; then
+    echo "WhiteBox tests failed. Push aborted."
+    exit 1
+fi
+
+echo "All tests passed. Proceeding with the push."
+exit 0
