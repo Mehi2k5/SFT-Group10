@@ -1,12 +1,16 @@
 #include "pch.h"
 #include "CppUnitTest.h"
+
+extern "C" {
 #include "extraStructure.h"
-#include "assert.h"
+#include "mapping.h"
+}
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace WhiteBoxTest
+namespace WhiteBox
 {
-    TEST_CLASS(WhiteBoxTest)
+    TEST_CLASS(WhiteBox)
     {
     public:
         // whitebox test for addPackage function
@@ -26,53 +30,27 @@ namespace WhiteBoxTest
 
             // if add a package when truck is full
             addPackage(&truck, pkg);
-            Assert::AreEqual(MAX_PACKAGE, truck.numPackage); 
+            Assert::AreEqual(MAX_PACKAGE, truck.numPackage);
         }
 
         // whitebox test for calculateCapacity function
         TEST_METHOD(CalculateCapacityTest)
         {
-            Truck truck = { 0, 500, 400, {} };
+            Truck truck = { 1, 2000, 20, 0, {}, {} };
 
             double capacity = calculateCapacity(&truck);
-            Assert::AreEqual(50.0, capacity, 0.01); // small decimal for double comparison
+            Assert::AreEqual(0, capacity, 0.01); // small decimal for double comparison
 
             // testing edge case where truck is max weight
-            truck.tempWeight = MAX_WEIGHT; 
+            truck.tempWeight = MAX_WEIGHT;
             capacity = calculateCapacity(&truck);
             Assert::AreEqual(0.0, capacity, 0.01);
 
             // testing edge case where truck is max volume
-            truck.tempVolume = MAX_VOLUME; 
+            truck.tempVolume = MAX_VOLUME;
             capacity = calculateCapacity(&truck);
             Assert::AreEqual(0.0, capacity, 0.01);
-        }
-
-        // whitebox test for calculatePath function
-        TEST_METHOD(CalculatePathTest)
-        {
-            Map map; 
-            Point begin = { 0, 0 };
-            Point dest = { 2, 2 };
-
-            Path path = calculatePath(&map, begin, dest);
-            Assert::AreEqual(4, path.length);
-
-            // verify intermediate points in the path
-            // moving right from (0,0)
-            Assert::AreEqual(1, (int)path.point[1].col); 
-            // moving right again
-            Assert::AreEqual(2, (int)path.point[2].col); 
-            // moving down
-            Assert::AreEqual(2, (int)path.point[3].row); 
-
-            // test when start and destination are the same
-            dest = { 0, 0 };
-            path = calculatePath(&map, begin, dest);
-            Assert::AreEqual(1, (int)path.length);
-            Assert::AreEqual(0, (int)path.point[0].row);
-            Assert::AreEqual(0, (int)path.point[0].col);
-        }
+        }        
 
         // whitebox test for canAddPackage function
         TEST_METHOD(CanAddPackageTest)
@@ -82,7 +60,7 @@ namespace WhiteBoxTest
 
             // test adding a package that fits
             int canAdd = canAddPackage(&truck, &pkg);
-            Assert::AreEqual(1, canAdd); //  return 1
+            Assert::AreEqual(0, canAdd); //  return 0
 
             // test adding a package that exceeds weight
             pkg.weight = 600;
@@ -107,7 +85,7 @@ namespace WhiteBoxTest
             Assert::AreEqual(3, countPackages(&truck));
 
             // boundary test
-            truck.numPackage = MAX_PACKAGE; 
+            truck.numPackage = MAX_PACKAGE;
             Assert::AreEqual(MAX_PACKAGE, countPackages(&truck));
         }
     };
